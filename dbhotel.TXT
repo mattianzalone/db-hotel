@@ -32,6 +32,21 @@ SELECT `name`,`lastname`,`date_of_birth` FROM`ospiti` WHERE `document_type` = 'D
 
 SELECT SUM(`beds`)
 FROM `stanze` 
+____________________________________________________________________
+
+1.Fai un'analisi per vedere se ci sono ore in cui le prenotazioni sono più frequenti.
+
+SELECT HOUR(`created_at`), COUNT(`id`)
+FROM `prenotazioni`
+GROUP BY HOUR(`created_at`)
+ORDER BY COUNT(`id`)
+
+2.Le stanze sono state tutte prenotate almeno una volta? (Visualizzare le stanze non ancora prenotate)
+SELECT stanze.id, stanze.room_number
+FROM `stanze`
+LEFT JOIN `prenotazioni`
+ON stanze.id = prenotazioni.stanza_id
+WHERE prenotazioni.id IS NULL;
 
 
 
